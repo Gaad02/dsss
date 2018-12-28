@@ -1,5 +1,5 @@
 <?php
-if (isset($_REQUEST['buttonName'])) {
+if (isset($_REQUEST['buttomName'])) {
   require_once('phpQuery/phpQuery.php');
 
   function curlGetContents($page_url, $base_url, $pause_time, $retry)
@@ -47,17 +47,21 @@ if (isset($_REQUEST['buttonName'])) {
 
   $link = $_REQUEST['link'];
 
-  $str = curlGetContents($link, 'google.com', 0, 0);
-  $objeckPage = phpQuery::newDocument($str['html']);
+  $paeg = curlGetContents($link, 'google.com', 0, 0);
+  $str = $paeg['html'];
+  $objeckPage = phpQuery::newDocument($str);
   switch ($_REQUEST['elems']) {
     case 'title':
-      $elems  = $str->find('title');
+      $elems  = $objeckPage->find('title');
       break;
 
     case 'body':
-          $elems  = $str->find('body');
+          $elems  = $objeckPage->find('body');
         break;
   }
+  $text = $elems->html();
+  var_dump($text);
+
 } else {
   ?>
   <!DOCTYPE html>
