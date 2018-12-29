@@ -1,15 +1,15 @@
 <?php
-if (isset($_REQUEST['buttomName'])) {
+if (isset($_REQUEST['buttomName']) and !empty($_REQUEST['link'])) {
   require_once('phpQuery/phpQuery.php');
 
   function curlGetContents($page_url, $base_url, $pause_time, $retry)
   {
-      /*
-      $page_url - адрес страницы-источника
-      $base_url - адрес страницы для поля REFERER
-      $pause_time - пауза между попытками парсинга
-      $retry - 0 - не повторять запрос, 1 - повторить запрос при неудаче
-      */
+
+      //$page_url - адрес страницы-источника
+      //$base_url - адрес страницы для поля REFERER
+      //$pause_time - пауза между попытками парсинга
+      //$retry - 0 - не повторять запрос, 1 - повторить запрос при неудаче
+
       $error_page = [];
       $ch = curl_init();
 
@@ -67,6 +67,7 @@ if (isset($_REQUEST['buttomName'])) {
 } else {
   if (file_exists('testhtml.html')) {
     include('testhtml.html');
+    echo 'Не заполнили поле со ссылкой!!';
   } else {
     echo 'Файл не найден';
   }
