@@ -46,10 +46,11 @@ if (isset($_REQUEST['buttomName'])) {
   }
 
   $link = $_REQUEST['link'];
-
   $paeg = curlGetContents($link, 'google.com', 0, 0);
   $str = $paeg['html'];
   $objeckPage = phpQuery::newDocument($str);
+
+
   switch ($_REQUEST['elems']) {
     case 'title':
       $elems  = $objeckPage->find('title');
@@ -59,27 +60,14 @@ if (isset($_REQUEST['buttomName'])) {
           $elems  = $objeckPage->find('body');
         break;
   }
+
   $text = $elems->html();
   var_dump($text);
 
 } else {
-  ?>
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-  	<meta charset="UTF-8">
-  	<title>Тестовая html страница</title>
-  </head>
-  <body>
-  	<form action="#" method="POST">
-      Ссылка: <input type="text" name="link">
-      <select name="elems">
-        <option value="title">title</option>
-        <option value="body">body</option>
-      </select>
-  		<input type="submit" name="buttomName">
-  	</form>
-  </body>
-  </html>
-  <?
+  if (file_exists('testhtml.html')) {
+    include('testhtml.html');
+  } else {
+    echo 'Файл не найден';
+  }
 }
