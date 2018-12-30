@@ -50,7 +50,16 @@ if (isset($_REQUEST['buttomName']) and !empty($_REQUEST['link'])) {
   $str = $paeg['html'];
   $objeckPage = phpQuery::newDocument($str);
 
+if (!empty($_REQUEST['nameId']) or !empty($_REQUEST['nameClass'])) {
+  $id = '#'.$_REQUEST['nameId'];
+  $class = '.'.$_REQUEST['nameClass'];
+  if (!empty($class)) {
+      $elems = $objeckPage->find("$class");
+  } else {
+      $elems = $objeckPage->find("$id");
+  }
 
+} else {
   switch ($_REQUEST['elems']) {
     case 'title':
       $elems  = $objeckPage->find('title');
@@ -60,9 +69,11 @@ if (isset($_REQUEST['buttomName']) and !empty($_REQUEST['link'])) {
           $elems  = $objeckPage->find('body');
         break;
   }
+}
 
   $text = $elems->html();
-  var_dump($text);
+  $texttTrim = trim($text);
+  var_dump($texttTrim);
 
 } else {
   if (file_exists('testhtml.html')) {
